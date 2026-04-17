@@ -18,7 +18,7 @@ namespace TempoControl.BaseDatos
 
         /// <summary>
         /// Crea las tablas si no existen.
-        /// Se llama una sola vez al iniciar la apliacion.
+        /// Se llama una sola vez al iniciar el programa.
         /// </summary>
         public void inicializar()
         {
