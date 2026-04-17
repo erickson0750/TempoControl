@@ -2,7 +2,7 @@ namespace TempoControl.Dominio
 {
     /// <summary>
     /// Entidad que representa un Empleado de la empresa
-    /// capa: Dominio - sin dependencias externas.
+    /// capa: Dominio - sin dependencias externas
     /// </summary>
     public class Empleado
     {

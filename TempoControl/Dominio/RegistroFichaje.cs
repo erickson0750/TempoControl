@@ -11,7 +11,7 @@ namespace TempoControl.Dominio
         public DateTime HoraEntrada {get; set; }
         public DateTime? HoraSalida {get; set; }
 
-        //Propiedad de navegacion (no se guarda en BD directamente)
+        //Propiedad de navegacion (no se guarda en BD directamente).
         public string NombreEmpleado {get; set; } = string.Empty;
 
         /// <summary>
