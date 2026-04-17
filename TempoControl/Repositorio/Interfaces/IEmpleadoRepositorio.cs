@@ -8,7 +8,7 @@ namespace TempoControl.Repositorio.Interfaces
     /// </summary>
     public interface IEmpleadoRepositorio
     {
-        /// <summary> Registra un nuevo empleado en el sistema.</summary>
+        /// <summary> Registra un nuevo empleado en el sistema</summary>
         void Crear(Empleado empleado);
 
         /// <summary> Obtine todos los empleados (activos o inactivos) </summary>

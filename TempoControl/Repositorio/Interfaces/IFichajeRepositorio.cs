@@ -4,7 +4,7 @@ namespace TempoControl.Repositorio.Interfaces
 {
     /// <summary>
     /// Contrato del repositorio de fichajes.
-    /// Definir las operaciones de persistencia sin importar la BD usada.
+    /// Definir las operaciones de persistencia sin importar la BD usada
     /// </summary>
     public interface IFichajeRepositorio
     {
