@@ -6,7 +6,7 @@ namespace TempoControl.Dominio
     /// </summary>
     public class ReporteEmpleado
     {
-        public int Empleado { get; set; }
+        public int EmpleadoId { get; set; }
         public string NombreEmpleado { get; set; } = string.Empty;
         public string Departamento { get; set; } = string.Empty;
         public int TotalDiasTrabajados { get; set; }
