@@ -23,17 +23,17 @@ namespace TempoControl.Repositorio.Interfaces
         /// </summary>
         public Empleado CrearEmpleado(string nombre, string departamento, string posicion)
         {
-            ValidarTexto(nombre,       "Nombre completo");
+            ValidarTexto(nombre, "Nombre completo");
             ValidarTexto(departamento, "Departamento");
-            ValidarTexto(posicion,     "Posición");
+            ValidarTexto(posicion, "Posición");
 
             var empleado = new Empleado
             {
                 NombreCompleto = nombre.Trim(),
-                Departamento   = departamento.Trim(),
-                Posicion       = posicion.Trim(),
-                Activo         = true,
-                FechaRegistro  = DateTime.Now
+                Departamento = departamento.Trim(),
+                Posicion = posicion.Trim(),
+                Activo = true,
+                FechaRegistro = DateTime.Now
             };
 
             _repositorio.Crear(empleado);
@@ -67,14 +67,14 @@ namespace TempoControl.Repositorio.Interfaces
         /// </summary>
         public void ActualizarEmpleado(int id, string nombre, string departamento, string posicion)
         {
-            ValidarTexto(nombre,       "Nombre completo");
+            ValidarTexto(nombre, "Nombre completo");
             ValidarTexto(departamento, "Departamento");
-            ValidarTexto(posicion,     "Posición");
+            ValidarTexto(posicion, "Posición");
 
             var empleado = ObtenerPorId(id); //Verificar que exista
             empleado.NombreCompleto = nombre.Trim();
-            empleado.Departamento   = departamento.Trim();
-            empleado.Posicion       = posicion.Trim();
+            empleado.Departamento = departamento.Trim();
+            empleado.Posicion = posicion.Trim();
 
             if (!_repositorio.Actualizar(empleado))
                 throw new InvalidOperationException(
@@ -88,12 +88,12 @@ namespace TempoControl.Repositorio.Interfaces
         {
             var empleado = ObtenerPorId(id); //Verificar que exista
 
-            if(!empleado.Activo)
+            if (!empleado.Activo)
                 throw new InvalidOperationException(
                     $"El empleado '{empleado.NombreCompleto}' ya esta inactivo.");
 
             if (!_repositorio.Desactivar(id))
-                throw new InvalidOperationException( 
+                throw new InvalidOperationException(
                     $"No se pudo desactivar el empleado con ID {id}.");
         }
 
