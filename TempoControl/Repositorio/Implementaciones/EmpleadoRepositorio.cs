@@ -9,7 +9,7 @@ namespace TempoControl.Repositorio.Implementaciones
     /// Implementacion concreta del repositorio de Empleados usando SQLite.
     /// Capa: Acceso a Datos - todo el SQL esta aqui, sin logica de negocio.
     /// </summary>
-    public class EmpleadoRepositorio
+    public class EmpleadoRepositorio : IEmpleadoRepositorio
     {
         private readonly InicializadorBaseDatos _db;
 
