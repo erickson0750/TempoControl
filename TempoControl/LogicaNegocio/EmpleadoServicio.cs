@@ -1,7 +1,7 @@
 using TempoControl.Dominio;
 using TempoControl.Repositorio.Interfaces;
 
-namespace TempoControl.Repositorio.Interfaces
+namespace TempoControl.LogicaNegocio
 {
     /// <summary>
     /// Servicio de logica de negocio para la gestion de empleados.
