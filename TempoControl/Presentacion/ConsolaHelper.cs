@@ -5,7 +5,7 @@ namespace TempoControl.Presentacion
 {
     public static class ConsolaHelper
     {
-        //Mensaje con color
+        //Mensaje con color.
         public static void MostrarTitulo(string texto)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
