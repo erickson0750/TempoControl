@@ -38,12 +38,12 @@ namespace TempoControl.Presentacion
 
                 switch (opcion)
                 {
-                    case "1": CrearEmpleado();      break;
-                    case "2": ListarEmpleados();    break;
-                    case "3": BuscarEmpleado();     break;
+                    case "1": CrearEmpleado(); break;
+                    case "2": ListarEmpleados(); break;
+                    case "3": BuscarEmpleado(); break;
                     case "4": ActualizarEmpleado(); break;
                     case "5": DesactivarEmpleado(); break;
-                    case "0": continuar = false;    break;
+                    case "0": continuar = false; break;
                     default:
                         ConsolaHelper.MostrarAdvertencia("Opcion no valida. Intente de nuevo.");
                         ConsolaHelper.EsperarTecla();
@@ -62,8 +62,8 @@ namespace TempoControl.Presentacion
             try
             {
                 var nombre = ConsolaHelper.LeerTexto("Nombre completo");
-                var depto  = ConsolaHelper.LeerTexto("Departamento");
-                var posic  = ConsolaHelper.LeerTexto("Posicion / Cargo");
+                var depto = ConsolaHelper.LeerTexto("Departamento");
+                var posic = ConsolaHelper.LeerTexto("Posicion / Cargo");
 
                 if (!ConsolaHelper.Confirmar($"¿Confirma crear al empleado '{nombre}'?"))
                 {
@@ -112,7 +112,7 @@ namespace TempoControl.Presentacion
                 ConsolaHelper.MostrarInfo($"Total registrados: {empleados.Count}");
                 ConsolaHelper.MostrarSeparador();
 
-                var activos   = empleados.Where(e => e.Activo).ToList();
+                var activos = empleados.Where(e => e.Activo).ToList();
                 var inactivos = empleados.Where(e => !e.Activo).ToList();
 
                 if (activos.Any())
@@ -148,7 +148,7 @@ namespace TempoControl.Presentacion
 
             try
             {
-                var id  = ConsolaHelper.LeerEntero("ID del empleado", 1);
+                var id = ConsolaHelper.LeerEntero("ID del empleado", 1);
                 var emp = _servicio.ObtenerPorId(id);
                 MostrarDetalleEmpleado(emp);
             }
@@ -177,7 +177,7 @@ namespace TempoControl.Presentacion
 
             try
             {
-                var id  = ConsolaHelper.LeerEntero("ID del empleado a actualizar", 1);
+                var id = ConsolaHelper.LeerEntero("ID del empleado a actualizar", 1);
                 var emp = _servicio.ObtenerPorId(id);
 
                 ConsolaHelper.MostrarInfo($"Empleado actual: {emp}");
@@ -235,7 +235,7 @@ namespace TempoControl.Presentacion
 
             try
             {
-                var id  = ConsolaHelper.LeerEntero("ID del empleado a desactivar", 1);
+                var id = ConsolaHelper.LeerEntero("ID del empleado a desactivar", 1);
                 var emp = _servicio.ObtenerPorId(id);
 
                 ConsolaHelper.MostrarInfo($"Empleado: {emp}");
