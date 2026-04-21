@@ -9,7 +9,7 @@ namespace TempoControl.Presentacion
         public static void MostrarTitulo(string texto)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($" {texto, -44}");
+            Console.WriteLine($" {texto,-44}");
             Console.ResetColor();
         }
 
@@ -23,21 +23,36 @@ namespace TempoControl.Presentacion
         public static void MostrarExito(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n  Exitoso {mensaje}");
+            Console.WriteLine($"\n  Exito {mensaje}");
+            Console.ResetColor();
+        }
+
+        public static void MostrarError(string mensaje)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\n  ERROR: {mensaje}");
             Console.ResetColor();
         }
 
         public static void MostrarAdvertencia(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"  Adverticia  {mensaje}");
+            Console.WriteLine($"\n  Advertencia {mensaje}");
             Console.ResetColor();
         }
 
         public static void MostrarInfo(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"  " + new string('─', 60));
+            Console.WriteLine($"  {mensaje}");
+            Console.ResetColor();
+        }
+
+        public static void MostrarSeparador()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("  " + new string('─', 60));
+            Console.ResetColor();
         }
 
         // Lectura de entrada
@@ -60,7 +75,7 @@ namespace TempoControl.Presentacion
             }
         }
 
-         /// <summary>Lee un número entero dentro de un rango válido.<summary>
+        /// <summary>Lee un número entero dentro de un rango válido.<summary>
         public static int LeerEntero(string etiqueta, int min = 1, int max = int.MaxValue)
         {
             while (true)
@@ -72,7 +87,7 @@ namespace TempoControl.Presentacion
                 var entrada = Console.ReadLine()?.Trim();
 
                 if (int.TryParse(entrada, out int valor) && valor >= min && valor <= max)
-                return valor;
+                    return valor;
 
                 MostrarAdvertencia($"Ingrese un numero entero entre {min} y {max}.");
             }
