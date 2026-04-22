@@ -1,5 +1,7 @@
 # TempoControl
+
 ### Sistema de Gestión de Fichaje de Empleados
+
 **Cliente:** Innovatech Solutions, S.R.L.
 **Asignatura:** Teoría de Programación 1 — Unidad 6 Manejo de excepciones y persistencia de datos
 **Tecnología:** C# · .NET 10 · SQLite · Patrón Repositorio
@@ -17,6 +19,8 @@ trabajadas.
 ---
 
 ## Arquitectura — 4 Capas + Patrón Repositorio
+
+```
 ┌─────────────────────────────────────────────────────┐
 │              CAPA DE PRESENTACIÓN                    │
 │   ConsolaHelper · EmpleadoUI · FichajeUI · ReporteUI│
@@ -44,10 +48,13 @@ trabajadas.
 └─────────────────┘
     CAPA DE DOMINIO (transversal a todas)
   Empleado · RegistroFichaje · ReporteEmpleado
+```
 
 ---
 
 ## Estructura del Proyecto
+
+```
 TempoControl/
 │
 ├── TempoControl.sln
@@ -81,24 +88,27 @@ TempoControl/
 │
 └── BaseDatos/                        ← Inicialización del esquema SQLite
 └── InicializadorBaseDatos.cs
+```
 
 ---
 
 ## Modelo de Base de Datos
 
 ### Tabla: `Empleados`
-| Columna        | Tipo    | Descripción                         |
-|----------------|---------|-------------------------------------|
-| Id             | INTEGER | Clave primaria autoincremental      |
-| NombreCompleto | TEXT    | Nombre completo del empleado        |
-| Departamento   | TEXT    | Departamento al que pertenece       |
-| Posicion       | TEXT    | Cargo o posición en la empresa      |
+
+| Columna        | Tipo    | Descripción                            |
+| -------------- | ------- | -------------------------------------- |
+| Id             | INTEGER | Clave primaria autoincremental         |
+| NombreCompleto | TEXT    | Nombre completo del empleado           |
+| Departamento   | TEXT    | Departamento al que pertenece          |
+| Posicion       | TEXT    | Cargo o posición en la empresa         |
 | Activo         | INTEGER | 1 = Activo, 0 = Inactivo (baja lógica) |
-| FechaRegistro  | TEXT    | Fecha de registro en formato ISO 8601 |
+| FechaRegistro  | TEXT    | Fecha de registro en formato ISO 8601  |
 
 ### Tabla: `RegistrosFichaje`
+
 | Columna     | Tipo    | Descripción                              |
-|-------------|---------|------------------------------------------|
+| ----------- | ------- | ---------------------------------------- |
 | Id          | INTEGER | Clave primaria autoincremental           |
 | EmpleadoId  | INTEGER | Clave foránea → Empleados(Id)            |
 | HoraEntrada | TEXT    | Fecha y hora de entrada en ISO 8601      |
@@ -107,72 +117,75 @@ TempoControl/
 ---
 
 ## Diagrama UML de Clases
-┌─────────────────────────┐       ┌──────────────────────────────┐
-│      <<Entidad>>        │       │         <<Entidad>>           │
-│        Empleado         │       │       RegistroFichaje         │
-├─────────────────────────┤       ├──────────────────────────────┤
-│ + Id: int               │       │ + Id: int                    │
-│ + NombreCompleto: string│       │ + EmpleadoId: int            │
-│ + Departamento: string  │       │ + HoraEntrada: DateTime      │
-│ + Posicion: string      │  1──* │ + HoraSalida: DateTime?      │
-│ + Activo: bool          │       │ + NombreEmpleado: string     │
-│ + FechaRegistro:DateTime│       │ + EstaCompleto: bool         │
-└─────────────────────────┘       │ + HorasTrabajadas: double?   │
+
+┌─────────────────────────┐ ┌──────────────────────────────┐
+│ <<Entidad>> │ │ <<Entidad>> │
+│ Empleado │ │ RegistroFichaje │
+├─────────────────────────┤ ├──────────────────────────────┤
+│ + Id: int │ │ + Id: int │
+│ + NombreCompleto: string│ │ + EmpleadoId: int │
+│ + Departamento: string │ │ + HoraEntrada: DateTime │
+│ + Posicion: string │ 1──\* │ + HoraSalida: DateTime? │
+│ + Activo: bool │ │ + NombreEmpleado: string │
+│ + FechaRegistro:DateTime│ │ + EstaCompleto: bool │
+└─────────────────────────┘ │ + HorasTrabajadas: double? │
 └──────────────────────────────┘
 ┌──────────────────────────────┐
-│        <<Interfaz>>          │
-│    IEmpleadoRepositorio      │
+│ <<Interfaz>> │
+│ IEmpleadoRepositorio │
 ├──────────────────────────────┤
-│ + Crear(Empleado)            │
-│ + ObtenerTodos()             │
-│ + ObtenerActivos()           │
-│ + ObtenerPorId(int)          │
+│ + Crear(Empleado) │
+│ + ObtenerTodos() │
+│ + ObtenerActivos() │
+│ + ObtenerPorId(int) │
 │ + Actualizar(Empleado): bool │
-│ + Desactivar(int): bool      │
+│ + Desactivar(int): bool │
 └──────────────┬───────────────┘
 △ implementa
 ┌──────────────┴───────────────┐
-│     EmpleadoRepositorio      │
-│       (SQLite)               │
+│ EmpleadoRepositorio │
+│ (SQLite) │
 └──────────────────────────────┘
 ┌──────────────────────────────┐
-│        <<Interfaz>>          │
-│     IFichajeRepositorio      │
+│ <<Interfaz>> │
+│ IFichajeRepositorio │
 ├──────────────────────────────┤
-│ + RegistrarEntrada(...)      │
-│ + RegistrarSalida(...)       │
+│ + RegistrarEntrada(...) │
+│ + RegistrarSalida(...) │
 │ + ObtenerFichajeAbierto(...) │
-│ + ObtenerPorMes(...)         │
-│ + ObtenerUltimos(...)        │
+│ + ObtenerPorMes(...) │
+│ + ObtenerUltimos(...) │
 └──────────────┬───────────────┘
 △ implementa
 ┌──────────────┴───────────────┐
-│      FichajeRepositorio      │
-│    (SQLite + Transacciones)  │
+│ FichajeRepositorio │
+│ (SQLite + Transacciones) │
 └──────────────────────────────┘
 
 ---
 
 ## Requerimientos Implementados
 
-| Código | Descripción | Estado |
-|--------|-------------|--------|
-| RF-01  | CRUD de Empleados (Crear, Leer, Actualizar, Desactivar) | ✅ |
-| RF-02  | Registro de entrada y salida con timestamp exacto | ✅ |
-| RF-03  | Reporte mensual con días y horas por empleado | ✅ |
-| RNF-01 | C# · .NET 8 · Aplicación de Consola | ✅ |
-| RNF-02 | SQLite sin servidor, portable | ✅ |
-| RNF-03 | Patrón Repositorio con 4 capas separadas | ✅ |
+| Código | Descripción                                             | Estado |
+| ------ | ------------------------------------------------------- | ------ |
+| RF-01  | CRUD de Empleados (Crear, Leer, Actualizar, Desactivar) | ✅     |
+| RF-02  | Registro de entrada y salida con timestamp exacto       | ✅     |
+| RF-03  | Reporte mensual con días y horas por empleado           | ✅     |
+| RNF-01 | C# · .NET 8 · Aplicación de Consola                     | ✅     |
+| RNF-02 | SQLite sin servidor, portable                           | ✅     |
+| RNF-03 | Patrón Repositorio con 4 capas separadas                | ✅     |
 
 ---
 
 ## Instalación y Ejecución
 
 ### Requisitos
+
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - No requiere servidor de base de datos (SQLite está embebido)
 
 ### Pasos
+
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/erickson0750/TempoControl.git
