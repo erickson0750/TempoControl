@@ -29,10 +29,10 @@ namespace TempoControl.Repositorio.Implementaciones
                 {
                     //Verificar que no haya ya un fichaje abierto
                     using var checkCmd = conexion.CreateCommand();
-                    checkCmd.Transaction =transaccion;
+                    checkCmd.Transaction = transaccion;
                     checkCmd.CommandText = @"
                         SELECT COUNT(*) FROM RegistrosFichaje
-                        WHERE Empleado = $empId
+                        WHERE EmpleadoId = $empId
                           AND HoraSalida IS NULL;";
                     checkCmd.Parameters.AddWithValue("$empId", empleadoId);
 
@@ -40,15 +40,16 @@ namespace TempoControl.Repositorio.Implementaciones
                     if (cantidad > 0)
                         throw new InvalidOperationException(
                             "El empleado ya tiene un fichaje de entrada abierto.");
-                    
+
                     //Insertar el nuevo registro de entrada
                     using var insertCmd = conexion.CreateCommand();
                     insertCmd.Transaction = transaccion;
                     insertCmd.CommandText = @"
-                        INSERT INTO RegistroFichaje (EmpleadoId, HoraEntrada)
+                        INSERT INTO RegistrosFichaje (EmpleadoId, HoraEntrada)
                         VALUES ($empId, $entrada);";
-                    insertCmd.Parameters.AddWithValue("$empId",  empleadoId);
+                    insertCmd.Parameters.AddWithValue("$empId", empleadoId);
                     insertCmd.Parameters.AddWithValue("$entrada", horaEntrada.ToString("o"));
+                    insertCmd.ExecuteNonQuery();
 
                     transaccion.Commit();
                 }
@@ -61,7 +62,7 @@ namespace TempoControl.Repositorio.Implementaciones
             catch (SqliteException ex)
             {
                 throw new InvalidOperationException(
-                    $"Error de base de datos al registrar entrada: {ex.Message}", ex );
+                    $"Error de base de datos al registrar entrada: {ex.Message}", ex);
             }
         }
 
@@ -79,8 +80,8 @@ namespace TempoControl.Repositorio.Implementaciones
                     selectCmd.Transaction = transaccion;
                     selectCmd.CommandText = @"
                         SELECT Id, HoraEntrada
-                        FROM RegistroFichaje
-                        Where EmpleadoId = $empId
+                        FROM RegistrosFichaje
+                        WHERE EmpleadoId = $empId
                           AND HoraSalida IS NULL
                         ORDER BY HoraEntrada DESC
                         LIMIT 1;";
@@ -96,7 +97,7 @@ namespace TempoControl.Repositorio.Implementaciones
                             transaccion.Rollback();
                             return false;
                         }
-                        fichajeId   = reader.GetInt32(0);
+                        fichajeId = reader.GetInt32(0);
                         horaEntrada = DateTime.Parse(reader.GetString(1));
                     }
 
@@ -104,8 +105,8 @@ namespace TempoControl.Repositorio.Implementaciones
                     if (horaSalida <= horaEntrada)
                         throw new InvalidOperationException(
                             "La hora de salida no puede ser anterior o igual a la hora de entrada.");
-                    
-                     // Registrar la salida
+
+                    // Registrar la salida
                     using var updateCmd = conexion.CreateCommand();
                     updateCmd.Transaction = transaccion;
                     updateCmd.CommandText = @"
@@ -113,7 +114,7 @@ namespace TempoControl.Repositorio.Implementaciones
                         SET HoraSalida = $salida
                         WHERE Id = $id;";
                     updateCmd.Parameters.AddWithValue("$salida", horaSalida.ToString("o"));
-                    updateCmd.Parameters.AddWithValue("$id",     fichajeId);
+                    updateCmd.Parameters.AddWithValue("$id", fichajeId);
                     updateCmd.ExecuteNonQuery();
 
                     transaccion.Commit();
@@ -171,7 +172,7 @@ namespace TempoControl.Repositorio.Implementaciones
 
                 // Filtrar por rango exacto de fechas del mes
                 var inicio = new DateTime(anio, mes, 1).ToString("o");
-                var fin    = new DateTime(anio, mes, 1).AddMonths(1).ToString("o");
+                var fin = new DateTime(anio, mes, 1).AddMonths(1).ToString("o");
 
                 cmd.CommandText = @"
                     SELECT rf.Id, rf.EmpleadoId, rf.HoraEntrada, rf.HoraSalida,
@@ -184,7 +185,7 @@ namespace TempoControl.Repositorio.Implementaciones
                     ORDER BY e.NombreCompleto, rf.HoraEntrada;";
 
                 cmd.Parameters.AddWithValue("$inicio", inicio);
-                cmd.Parameters.AddWithValue("$fin",    fin);
+                cmd.Parameters.AddWithValue("$fin", fin);
 
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -214,7 +215,7 @@ namespace TempoControl.Repositorio.Implementaciones
                     WHERE rf.EmpleadoId = $empId
                     ORDER BY rf.HoraEntrada DESC
                     LIMIT $cantidad;";
-                cmd.Parameters.AddWithValue("$empId",    empleadoId);
+                cmd.Parameters.AddWithValue("$empId", empleadoId);
                 cmd.Parameters.AddWithValue("$cantidad", cantidad);
 
                 using var reader = cmd.ExecuteReader();
@@ -232,10 +233,10 @@ namespace TempoControl.Repositorio.Implementaciones
         // Mapeo privado
         private static RegistroFichaje MapearFichaje(SqliteDataReader reader) => new()
         {
-            Id             = reader.GetInt32(0),
-            EmpleadoId     = reader.GetInt32(1),
-            HoraEntrada    = DateTime.Parse(reader.GetString(2)),
-            HoraSalida     = reader.IsDBNull(3) ? null : DateTime.Parse(reader.GetString(3)),
+            Id = reader.GetInt32(0),
+            EmpleadoId = reader.GetInt32(1),
+            HoraEntrada = DateTime.Parse(reader.GetString(2)),
+            HoraSalida = reader.IsDBNull(3) ? null : DateTime.Parse(reader.GetString(3)),
             NombreEmpleado = reader.GetString(4)
         };
     }
