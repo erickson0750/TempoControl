@@ -63,12 +63,19 @@ namespace TempoControl.BaseDatos
                     cmd.ExecuteNonQuery();
                 }
 
-                //Crear indices para mejorar redimiento en consultas.
+                //indices sobre EmpleadoId.
                 using (var cmd = conexion.CreateCommand())
                 {
                     cmd.CommandText = @"
                         CREATE INDEX IF NOT EXISTS IX_Fichaje_EmpleadoId
-                            ON RegistrosFichaje(Empleado);
+                            ON RegistrosFichaje(EmpleadoId);";
+                    cmd.ExecuteNonQuery();
+                }
+
+                //Indice sobre HoraEntrada
+                using (var cmd = conexion.CreateCommand())
+                {
+                    cmd.CommandText = @"
                         CREATE INDEX IF NOT EXISTS IX_Fichaje_HoraEntrada
                             ON RegistrosFichaje(HoraEntrada);";
                     cmd.ExecuteNonQuery();
