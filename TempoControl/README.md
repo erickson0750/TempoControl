@@ -118,6 +118,7 @@ TempoControl/
 
 ## Diagrama UML de Clases
 
+```
 ┌─────────────────────────┐ ┌──────────────────────────────┐
 │ <<Entidad>> │ │ <<Entidad>> │
 │ Empleado │ │ RegistroFichaje │
@@ -161,6 +162,7 @@ TempoControl/
 │ FichajeRepositorio │
 │ (SQLite + Transacciones) │
 └──────────────────────────────┘
+```
 
 ---
 
