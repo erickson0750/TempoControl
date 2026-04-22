@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TempoControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+622dd70190fa6188fc399ae093da8df0b7ed5a6c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f3aa9459e51c07b3d893e186f0d9b1798b06859")]
 [assembly: System.Reflection.AssemblyProductAttribute("TempoControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TempoControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -39,12 +39,12 @@ namespace TempoControl.BaseDatos
                 {
                     cmd.CommandText = @"
                         CREATE TABLE IF NOT EXISTS Empleados (
-                        Id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-                        NombreCompleto      TEXT NOT NULL,
-                        Departamento        TEXT NOT NULL,
-                        Posicion            TEXT NOT NULL,
-                        Activo              INTEGER NOT NULL DEFAULT 1,
-                        FechaRegistro       TEXT NOT NULL
+                            Id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                            NombreCompleto  TEXT    NOT NULL,
+                            Departamento    TEXT    NOT NULL,
+                            Posicion        TEXT    NOT NULL,
+                            Activo          INTEGER NOT NULL DEFAULT 1,
+                            FechaRegistro   TEXT    NOT NULL
                         );";
                     cmd.ExecuteNonQuery();
                 }
