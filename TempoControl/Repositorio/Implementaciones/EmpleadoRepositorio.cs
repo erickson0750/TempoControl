@@ -32,11 +32,11 @@ namespace TempoControl.Repositorio.Implementaciones
                     VALUES ($nombre, $depto, $posicion, $activo, $fecha);
                     SELECT last_insert_rowid();";
 
-                cmd.Parameters.AddWithValue("$nombre", empleado.NombreCompleto);
-                cmd.Parameters.AddWithValue("$depto", empleado.Departamento);
+                cmd.Parameters.AddWithValue("$nombre",   empleado.NombreCompleto);
+                cmd.Parameters.AddWithValue("$depto",    empleado.Departamento);
                 cmd.Parameters.AddWithValue("$posicion", empleado.Posicion);
-                cmd.Parameters.AddWithValue("$activo", empleado.Activo ? 1 : 0);
-                cmd.Parameters.AddWithValue("$fecha", empleado.FechaRegistro.ToString("o"));
+                cmd.Parameters.AddWithValue("$activo",   empleado.Activo ? 1 : 0);
+                cmd.Parameters.AddWithValue("$fecha",    empleado.FechaRegistro.ToString("o"));
 
                 var resultado = cmd.ExecuteScalar();
                 empleado.Id = Convert.ToInt32(resultado);
@@ -137,10 +137,10 @@ namespace TempoControl.Repositorio.Implementaciones
                         Posicion       = $posicion
                     WHERE Id = $id;";
 
-                cmd.Parameters.AddWithValue("$nombre", empleado.NombreCompleto);
-                cmd.Parameters.AddWithValue("$depto", empleado.Departamento);
+                cmd.Parameters.AddWithValue("$nombre",   empleado.NombreCompleto);
+                cmd.Parameters.AddWithValue("$depto",    empleado.Departamento);
                 cmd.Parameters.AddWithValue("$posicion", empleado.Posicion);
-                cmd.Parameters.AddWithValue("$id", empleado.Id);
+                cmd.Parameters.AddWithValue("$id",       empleado.Id);
 
                 return cmd.ExecuteNonQuery() > 0;
             }
