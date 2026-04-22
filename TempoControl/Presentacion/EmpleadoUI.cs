@@ -240,7 +240,7 @@ namespace TempoControl.Presentacion
 
                 ConsolaHelper.MostrarInfo($"Empleado: {emp}");
                 ConsolaHelper.MostrarAdvertencia(
-                    "Esta accion marcará al empleado como INACTIVO.");
+                    "Esta accion marcara al empleado como INACTIVO.");
                 ConsolaHelper.MostrarInfo(
                     "Sus registros historicos se conservaran.");
 
