@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempoControl", "TempoControl\TempoControl.csproj", "{5E8FC5A0-73DE-C48E-8541-B60B7960BA89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempoControl", "TempoControl.csproj", "{5E8FC5A0-73DE-C48E-8541-B60B7960BA89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
