@@ -118,9 +118,7 @@ TempoControl/
 
 ## Diagrama UML de Clases
 
-```
-![image alt](https://github.com/erickson0750/TempoControl/blob/f24b7373a6c50be2747f67f3fcb02c86d836dd03/Diagrama%20UML.png)
-```
+ ![image alt](https://github.com/erickson0750/TempoControl/blob/f24b7373a6c50be2747f67f3fcb02c86d836dd03/Diagrama%20UML.png)
 
 ---
 
